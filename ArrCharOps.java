@@ -7,16 +7,19 @@ public class ArrCharOps {
         char[] arr2 = {'U','n','d','e','r','s','t', 'o', 'o', 'd'};
         System.out.println(str);  // Prints the string
         println(arr1);            // Prints an array of characters
-        System.out.println(charAt(arr1, 2));      
-        System.out.println(indexOf(arr1, 'l'));  
-        System.out.println(indexOf(arr1, 'l', 3)); 
+        System.out.println(charAt(arr1,2));      
+        System.out.println(indexOf(arr1,'l'));  
+        System.out.println(indexOf(arr1,'l',3)); 
         System.out.println(lastIndexOf(arr1, 'l'));
         System.out.println(concat(arr1, arr2));
         System.out.println(subArray(arr2, 2, 9));
-        System.out.println(compareTo("abcd", "abcd")); // Should return 0
-        System.out.println(compareTo("abc", "abcd"));  // Should return -1
-        System.out.println(compareTo("abw", "abcd"));  // Should return 1
-        System.out.println(compareTo("Abcd", "a"));    // Should return -1
+        System.out.println(compareTo("abcd", "abcd"));
+        System.out.println(compareTo("abc", "abcd"));
+        System.out.println(compareTo("abw", "abcd"));
+        System.out.println(compareTo("Abcd", "a"));
+        System.out.println(compareTo("apple", "banana"));
+        System.out.println(compareTo("apple", "applepie"));
+        System.out.println(compareTo("Zoo", "zoo"));
         System.out.println(hashCode(arr1));
         System.out.println(hashCode(arr2));
     }
@@ -33,30 +36,35 @@ public class ArrCharOps {
     }
 
     public static boolean equals(char[] arr1, char[] arr2) {
-        if (arr1.length != arr2.length) return false;
+        if (arr1.length != arr2.length) {
+            return false;
+        }
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) return false;
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
         }
         return true;
     }
 
     public static int indexOf(char[] arr, char ch) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == ch) return i;
-        }
-        return -1;
+        return indexOf(arr, ch, 0);
     }
 
     public static int indexOf(char[] arr, char ch, int fromIndex) {
         for (int i = fromIndex; i < arr.length; i++) {
-            if (arr[i] == ch) return i;
+            if (arr[i] == ch) {
+                return i;
+            }
         }
         return -1;
     }
 
     public static int lastIndexOf(char[] arr, char ch) {
         for (int i = arr.length - 1; i >= 0; i--) {
-            if (arr[i] == ch) return i;
+            if (arr[i] == ch) {
+                return i;
+            }
         }
         return -1;
     }
@@ -76,7 +84,7 @@ public class ArrCharOps {
 
     public static long hashCode(char[] arr) {
         long hash = 0;
-        long power = 1; 
+        long power = 1;
         for (int i = arr.length - 1; i >= 0; i--) {
             hash += arr[i] * power;
             power *= 7;
@@ -86,29 +94,25 @@ public class ArrCharOps {
 
     public static int compareTo(String str1, String str2) {
         if (str1 == null || str2 == null) {
-            return -2; // Error code for invalid input
+            return -2; // Error case for null input
         }
 
-        int len1 = str1.length();
-        int len2 = str2.length();
-        int minLen = Math.min(len1, len2);
+        int minLength = Math.min(str1.length(), str2.length());
+        for (int i = 0; i < minLength; i++) {
+            char ch1 = str1.charAt(i);
+            char ch2 = str2.charAt(i);
 
-        // Compare characters one by one
-        for (int i = 0; i < minLen; i++) {
-            char char1 = str1.charAt(i);
-            char char2 = str2.charAt(i);
-
-            // Compare characters lexicographically
-            if (char1 != char2) {
-                return char1 < char2 ? -1 : 1;
+            if (ch1 != ch2) {
+                return ch1 < ch2 ? -1 : 1; // Compare characters lexicographically
             }
         }
 
-        // If all characters match, compare lengths
-        if (len1 == len2) {
-            return 0; // Strings are equal
+        if (str1.length() == str2.length()) {
+            return 0; // Strings are identical
         }
-        return len1 < len2 ? -1 : 1;
+
+        return str1.length() < str2.length() ? -1 : 1;
     }
 }
+
 
