@@ -14,13 +14,27 @@ public class KeywordsDetector {
             "Effective presentations must be clear, concise, and humble"
         };
         // Some keywords that typically signal bullshit contents in business presentations 
-        String[] keywords = {"synergy", "disrupt", "leverage", "Paradigm", "transform"};
+        String[] keywords = {"synergy", "disrupt", "leverage", "paradigm", "transform"};
         detectAndPrint(sentences, keywords);
     }
 
     // Iterates through all the sentences.
-    // If a sentence contains one or more of the kewords, prints it.
+    // If a sentence contains one or more of the keywords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
+        // Iterate over each sentence in the array
+        for (String sentence : sentences) {
+            // Convert the sentence to lowercase for case-insensitive comparison
+            String lowerCaseSentence = sentence.toLowerCase();
+
+            // Check if any of the keywords exist in the sentence
+            for (String keyword : keywords) {
+                // Convert the keyword to lowercase for case-insensitive comparison
+                if (lowerCaseSentence.contains(keyword.toLowerCase())) {
+                    // If the sentence contains the keyword, print it
+                    System.out.println(sentence);
+                    break;  // No need to check further keywords once a match is found
+                }
+            }
+        }
     }
 }
