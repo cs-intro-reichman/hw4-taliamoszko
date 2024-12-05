@@ -96,23 +96,28 @@ public class ArrCharOps {
         if (str1 == null || str2 == null) {
             return -2; // Error case for null input
         }
-
-        int minLength = Math.min(str1.length(), str2.length());
+    
+        int length1 = str1.length();
+        int length2 = str2.length();
+        int minLength = Math.min(length1, length2);
+    
         for (int i = 0; i < minLength; i++) {
             char ch1 = str1.charAt(i);
             char ch2 = str2.charAt(i);
-
+    
             if (ch1 != ch2) {
                 return ch1 < ch2 ? -1 : 1; // Compare characters lexicographically
             }
         }
-
-        if (str1.length() == str2.length()) {
+    
+        // If all characters are equal, compare based on length
+        if (length1 == length2) {
             return 0; // Strings are identical
         }
-
-        return str1.length() < str2.length() ? -1 : 1;
+        return length1 < length2 ? -1 : 1;
     }
-}
+    
+    }
+
 
 
