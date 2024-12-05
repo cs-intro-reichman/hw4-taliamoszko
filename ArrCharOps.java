@@ -1,15 +1,17 @@
+
 /** A library of operations on arrays of characters (char values).
  *  The library also features a string comparison method. */
 public class ArrCharOps {
+
     public static void main(String[] args) {
         String str = "clearly";
-        char[] arr1 = {'c','l','e','a','r','l','y'};
-        char[] arr2 = {'U','n','d','e','r','s','t', 'o', 'o', 'd'};
+        char[] arr1 = {'c', 'l', 'e', 'a', 'r', 'l', 'y'};
+        char[] arr2 = {'U', 'n', 'd', 'e', 'r', 's', 't', 'o', 'o', 'd'};
         System.out.println(str);  // Prints the string
         println(arr1);            // Prints an array of characters
-        System.out.println(charAt(arr1,2));      
-        System.out.println(indexOf(arr1,'l'));  
-        System.out.println(indexOf(arr1,'l',3)); 
+        System.out.println(charAt(arr1, 2));
+        System.out.println(indexOf(arr1, 'l'));
+        System.out.println(indexOf(arr1, 'l', 3));
         System.out.println(lastIndexOf(arr1, 'l'));
         System.out.println(concat(arr1, arr2));
         System.out.println(subArray(arr2, 2, 9));
@@ -83,6 +85,11 @@ public class ArrCharOps {
     }
 
     public static long hashCode(char[] arr) {
+
+        if (arr.length == 0) {
+            return 0;
+        }
+
         long hash = 0;
         long power = 1;
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -93,8 +100,8 @@ public class ArrCharOps {
     }
 
     public static int compareTo(String str1, String str2) {
-        if (str1 == null || str2 == null) {
-            throw new NullPointerException("Cannot compare null strings");
+        if (str1 == null || str2 == null || str1.isEmpty() || str2.isEmpty()) {
+            return -2;
         }
 
         int length1 = str1.length();
@@ -105,12 +112,19 @@ public class ArrCharOps {
             char ch1 = str1.charAt(i);
             char ch2 = str2.charAt(i);
 
-            if (ch1 != ch2) {
-                return ch1 < ch2 ? -1 : 1; // Compare characters lexicographically
+            if (ch1 > ch2) {
+                return 1; // Compare characters lexicographically
+            } else if (ch1 < ch2) {
+                return -1;
             }
         }
 
-        // If all characters are equal, compare based on length
-        return Integer.compare(length1, length2);
+        if (str1.length() < str2.length()) {
+            return -1;
+        } else if (str1.length() > str2.length()) {
+            return 1;
+        }
+
+        return 0;
     }
 }

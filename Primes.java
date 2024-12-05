@@ -31,9 +31,14 @@ public class Primes {
 
         // Step 4: Calculate the percentage of primes
         int totalNumbers = n - 2 + 1;  // Total numbers from 2 to n (inclusive)
-        int percentage = (int) ((primeCount / (double) totalNumbers) * 100); // Calculate the percentage of primes
-
-        // Step 5: Output the result
-        System.out.println("There are " + primeCount + " primes between 2 and " + n + " (" + percentage + "% are primes)");
+        if (totalNumbers > 0) {
+            int percentage = (int) ((primeCount / (double) totalNumbers) * 100); // Calculate the percentage of primes
+            // Step 5: Output the result
+            System.out.println("There are " + primeCount + " primes between 2 and " + n + " (" + percentage + "% are primes)");
+        } else {
+            // Handle case where n is less than 2
+            System.out.println("No numbers to evaluate.");
+        }
     }
 }
+
