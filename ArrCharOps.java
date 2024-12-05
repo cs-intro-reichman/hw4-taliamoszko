@@ -17,9 +17,6 @@ public class ArrCharOps {
         System.out.println(compareTo("abc", "abcd"));  // Should return -1
         System.out.println(compareTo("abw", "abcd"));  // Should return 1
         System.out.println(compareTo("Abcd", "a"));    // Should return -1
-        System.out.println(compareTo("apple", "banana")); // Should return -1
-        System.out.println(compareTo("apple", "applepie")); // Should return -1
-        System.out.println(compareTo("Zoo", "zoo"));    // Should return -1
         System.out.println(hashCode(arr1));
         System.out.println(hashCode(arr2));
     }
@@ -88,7 +85,6 @@ public class ArrCharOps {
     }
 
     public static int compareTo(String str1, String str2) {
-        // Check for null strings (although the problem assumes non-empty strings, this is good practice)
         if (str1 == null || str2 == null) {
             return -2; // Error code for invalid input
         }
@@ -97,20 +93,22 @@ public class ArrCharOps {
         int len2 = str2.length();
         int minLen = Math.min(len1, len2);
 
-        // Compare characters lexicographically
+        // Compare characters one by one
         for (int i = 0; i < minLen; i++) {
             char char1 = str1.charAt(i);
             char char2 = str2.charAt(i);
+
+            // Compare characters lexicographically
             if (char1 != char2) {
-                return char1 < char2 ? -1 : 1; // Use Unicode comparison
+                return char1 < char2 ? -1 : 1;
             }
         }
 
-        // If all compared characters are equal, check lengths
+        // If all characters match, compare lengths
         if (len1 == len2) {
             return 0; // Strings are equal
         }
-        return len1 < len2 ? -1 : 1; // Shorter string is lexicographically smaller
+        return len1 < len2 ? -1 : 1;
     }
 }
 
