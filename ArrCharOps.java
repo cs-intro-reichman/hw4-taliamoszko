@@ -94,30 +94,23 @@ public class ArrCharOps {
 
     public static int compareTo(String str1, String str2) {
         if (str1 == null || str2 == null) {
-            return -2; // Error case for null input
+            throw new NullPointerException("Cannot compare null strings");
         }
-    
+
         int length1 = str1.length();
         int length2 = str2.length();
         int minLength = Math.min(length1, length2);
-    
+
         for (int i = 0; i < minLength; i++) {
             char ch1 = str1.charAt(i);
             char ch2 = str2.charAt(i);
-    
+
             if (ch1 != ch2) {
                 return ch1 < ch2 ? -1 : 1; // Compare characters lexicographically
             }
         }
-    
+
         // If all characters are equal, compare based on length
-        if (length1 == length2) {
-            return 0; // Strings are identical
-        }
-        return length1 < length2 ? -1 : 1;
+        return Integer.compare(length1, length2);
     }
-    
-    }
-
-
-
+}
