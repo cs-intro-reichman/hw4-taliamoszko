@@ -1,54 +1,61 @@
 public class Primes {
     public static void main(String[] args) {
-        // Ensure the input value is provided correctly from command line
+        // Ensure that n is passed from the command line argument
         if (args.length < 1) {
             System.out.println("Please provide a value for n.");
             return;
         }
-
-        int n = Integer.parseInt(args[0]);  // Get 'n' from command line input
+        
+        int n = Integer.parseInt(args[0]); // Parse the input n
         System.out.println("Prime numbers up to " + n + ":");
+        
+        // Call the method to find and print prime numbers
         findPrimes(n);
     }
 
+    // Method to find prime numbers between 2 and n using the Sieve of Eratosthenes
     public static void findPrimes(int n) {
-        // If n is less than 2, return early as there are no primes
+        // If n is less than 2, there are no primes
         if (n < 2) {
             System.out.println("There are no prime numbers up to " + n);
             return;
         }
 
-        // Create a boolean array to track prime numbers
-        boolean[] prime = new boolean[n + 1];
+        // Initialize a boolean array for prime number detection
+        boolean[] isPrime = new boolean[n + 1];
         
-        // Initially assume all numbers are prime (set to true)
+        // Assume all numbers are prime initially (set all values to true)
         for (int i = 0; i <= n; i++) {
-            prime[i] = true;
+            isPrime[i] = true;
         }
 
         // 0 and 1 are not prime numbers
-        prime[0] = prime[1] = false;
+        isPrime[0] = isPrime[1] = false;
 
-        // Implement the Sieve of Eratosthenes
-        for (int p = 2; p * p <= n; p++) {
-            if (prime[p]) {
+        // Start from the first prime number, 2
+        int p = 2;
+        while (p * p <= n) {
+            if (isPrime[p]) {
+                // Mark all multiples of p as non-prime
                 for (int i = p * p; i <= n; i += p) {
-                    prime[i] = false; // Mark multiples of p as non-prime
+                    isPrime[i] = false;
                 }
             }
+            p++;
         }
 
-        // Print the prime numbers
+        // Print out the prime numbers
         int primeCount = 0;
         for (int i = 2; i <= n; i++) {
-            if (prime[i]) {
+            if (isPrime[i]) {
                 System.out.println(i); // Print the prime number
                 primeCount++;
             }
         }
 
         // Calculate the percentage of primes and print it
-        int percentage = (int) (((double) primeCount / (n - 1)) * 100); 
+        int percentage = (int)(((double) primeCount / (n - 1)) * 100); // Calculating the percentage of primes
         System.out.println("There are " + primeCount + " primes between 2 and " + n + " (" + percentage + "% are primes)");
     }
 }
+
