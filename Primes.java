@@ -1,41 +1,39 @@
 public class Primes {
     public static void main(String[] args) {
-        // Parse the input value n
-        int n = Integer.parseInt(args[0]);
+        int n = 7;  // Change this value to test different ranges
+        printPrimes(n);
+    }
 
-        // Initialize the sieve
-        boolean[] sieve = new boolean[n + 1];
-
-        // Mark all numbers as prime initially, except for 0 and 1
+    public static void printPrimes(int n) {
+        // Step 1: Create an array to mark prime numbers
+        boolean[] isPrime = new boolean[n + 1];
         for (int i = 2; i <= n; i++) {
-            sieve[i] = true;
+            isPrime[i] = true;  // Assume all numbers are prime initially
         }
 
-        // Implement the Sieve of Eratosthenes
-        int p = 2;
-        while (p * p <= n) {
-            if (sieve[p]) {
-                // Mark multiples of p as false
-                for (int i = p * p; i <= n; i += p) {
-                    sieve[i] = false;
+        // Step 2: Apply the Sieve of Eratosthenes
+        for (int i = 2; i * i <= n; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j <= n; j += i) {
+                    isPrime[j] = false;
                 }
             }
-            p++;
         }
 
-        // Print prime numbers
-        System.out.println("Prime numbers up to " + n + ":");
+        // Step 3: Count the number of primes and print them
         int primeCount = 0;
         for (int i = 2; i <= n; i++) {
-            if (sieve[i]) {
-                System.out.println(i);
+            if (isPrime[i]) {
+                System.out.println(i);  // Print the prime number
                 primeCount++;
             }
         }
 
-        // Calculate and print the percentage of primes as an integer
-        int percentage = (int) ((double) primeCount / (n - 1) * 100); // Casting to int to drop decimals
-        System.out.printf("There are %d primes between 2 and %d (%d%% are primes)\n", primeCount, n, percentage);
+        // Step 4: Calculate the percentage of primes
+        int totalNumbers = n - 2 + 1;  // Total numbers from 2 to n (inclusive)
+        int percentage = (int) ((primeCount / (double) totalNumbers) * 100); // Calculate the percentage of primes
+
+        // Step 5: Output the result
+        System.out.println("There are " + primeCount + " primes between 2 and " + n + " (" + percentage + "% are primes)");
     }
 }
-
